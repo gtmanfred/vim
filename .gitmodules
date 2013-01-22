@@ -16,3 +16,6 @@
 [submodule "bundle/pythonhelper"]
 	path = bundle/pythonhelper
 	url = git://github.com/vim-scripts/pythonhelper.git
+[submodule "bundle/nginx"]
+	path = bundle/nginx
+	url = git://github.com/vim-scripts/nginx.vim.git
