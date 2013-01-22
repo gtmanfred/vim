@@ -1,0 +1,8 @@
+*.swp
+*.un~
+.netrwhist
+sessions
+passwords.vim
+view
+*.cache
+*~
