@@ -1,0 +1,18 @@
+[submodule "bundle/clang_complete"]
+	path = bundle/clang_complete
+	url = git://github.com/Rip-Rip/clang_complete.git
+[submodule "bundle/javacomplete"]
+	path = bundle/javacomplete
+	url = git://github.com/vim-scripts/javacomplete.git
+[submodule "bundle/blogit"]
+	path = bundle/blogit
+	url = git://github.com/vim-scripts/blogit.vim.git
+[submodule "bundle/vim-systemd"]
+	path = bundle/vim-systemd
+	url = git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git
+[submodule "bundle/vim-python"]
+	path = bundle/vim-python
+	url = git://github.com/vim-scripts/python.vim--Vasiliev.git
+[submodule "bundle/pythonhelper"]
+	path = bundle/pythonhelper
+	url = git://github.com/vim-scripts/pythonhelper.git
