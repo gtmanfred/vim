@@ -9,7 +9,7 @@ set nobackup
 set smartindent
 set tabstop=4
 set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
-set expandtab
+set noexpandtab
 set showcmd         " Show (partial) command in status line.
 set softtabstop=4
 set number          " Show line numbers.
@@ -36,6 +36,10 @@ set tabpagemax=15
  
 set mouse=a         " Enable the use of the mouse.
 set scrolloff=3
+
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/cpp/ycm/.ycm_extra_conf.py'
+
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
