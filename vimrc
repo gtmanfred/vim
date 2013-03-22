@@ -5,6 +5,10 @@
 
 filetype indent plugin on
 
+runtime bundle/vim-pathogen/autoload/pathogen.vim 
+call pathogen#incubate()
+call pathogen#helptags()
+
 set nobackup
 set smartindent
 set tabstop=4
@@ -41,8 +45,7 @@ set scrolloff=3
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/cpp/ycm/.ycm_extra_conf.py'
 
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+"call pathogen#runtime_append_all_bundles()
 
 let g:netrw_http_cmd='curl -sL'
 let g:netrw_http_xcmd='-o'
