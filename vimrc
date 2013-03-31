@@ -5,6 +5,8 @@
 
 filetype indent plugin on
 
+set runtimepath+=~/.config/vim/
+set viminfo+=n~/.config/vim/viminfo
 runtime bundle/vim-pathogen/autoload/pathogen.vim 
 call pathogen#incubate()
 call pathogen#helptags()
@@ -13,7 +15,7 @@ set nobackup
 set smartindent
 set tabstop=4
 set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
-set noexpandtab
+"set noexpandtab
 set showcmd         " Show (partial) command in status line.
 set softtabstop=4
 set number          " Show line numbers.
@@ -42,7 +44,7 @@ set mouse=a         " Enable the use of the mouse.
 set scrolloff=3
 
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.config/vim/bundle/youcompleteme/cpp/ycm/.ycm_extra_conf.py'
 
 
 "call pathogen#runtime_append_all_bundles()
@@ -85,3 +87,8 @@ autocmd BufReadPost /tmp/* noremap q <esc>:q!<esc>
 au BufRead,BufNewFile *systemd* set filetype=systemd
 
 au BufWinEnter,BufRead,BufNewFile *.c set filetype=c ts=4 sw=4 noet
+
+let gitconfig=system("git config --get vim.settings")
+if strlen(gitconfig)
+    execute "set" gitconfig
+endif

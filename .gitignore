@@ -4,5 +4,6 @@
 sessions
 passwords.vim
 view
+viminfo
 *.cache
 *~
