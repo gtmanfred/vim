@@ -6,7 +6,6 @@
 filetype indent plugin on
 
 set runtimepath+=~/.config/vim/
-set viminfo+=n~/.config/vim/viminfo
 runtime bundle/vim-pathogen/autoload/pathogen.vim 
 call pathogen#incubate()
 call pathogen#helptags()
@@ -60,6 +59,8 @@ command W w ! sudo tee % <CR>L > /dev/null
 set virtualedit=block
 set foldmethod=syntax
 set foldopen=all
+
+
 set nocp
 syntax on
 colo gardener
@@ -68,8 +69,8 @@ let g:clang_complete_copen=1
 map <F2> :call g:ClangUpdateQuickFix() <CR>
 au BufRead,BufNew /tmp/mutt* so ~/.mutt/mutt.vim
 au BufRead *.txt set tw=94
-au BufWinLeave * silent! mkview
-au BufWinEnter * silent! loadview
+"au BufWinLeave * silent! mkview
+"au BufWinEnter * silent! loadview
 "au! BufRead,BufNewFile *.py call Setpython()
 au BufNewFile *zshcle* set ft=zsh
 au Bufread,BufNewfile /tmp/zsh* set ft=zsh
@@ -88,7 +89,10 @@ au BufRead,BufNewFile *systemd* set filetype=systemd
 
 au BufWinEnter,BufRead,BufNewFile *.c set filetype=c ts=4 sw=4 noet
 
+set viminfo+=n~/.cache/vim/viminfo
+
 let gitconfig=system("git config --get vim.settings")
 if strlen(gitconfig)
     execute "set" gitconfig
 endif
+
