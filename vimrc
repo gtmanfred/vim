@@ -6,6 +6,7 @@
 filetype indent plugin on
 
 set runtimepath+=~/.config/vim/
+set viminfo+=n~/.config/vim/
 runtime bundle/vim-pathogen/autoload/pathogen.vim 
 call pathogen#incubate()
 call pathogen#helptags()
