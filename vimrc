@@ -69,7 +69,7 @@ hi Normal ctermfg=NONE ctermbg=NONE cterm=NONE
 let g:clang_complete_copen=1
 map <F2> :call g:ClangUpdateQuickFix() <CR>
 au BufRead,BufNew /tmp/mutt* so ~/.mutt/mutt.vim
-au BufRead *.txt set tw=94
+au BufRead *.txt,*.mkd set tw=94
 "au BufWinLeave * silent! mkview
 "au BufWinEnter * silent! loadview
 "au! BufRead,BufNewFile *.py call Setpython()
