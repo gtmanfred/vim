@@ -61,6 +61,8 @@ set virtualedit=block
 set foldmethod=syntax
 set foldopen=all
 
+let g:tar_cmd = 'bsdtar'
+
 
 set nocp
 syntax on
@@ -70,8 +72,8 @@ let g:clang_complete_copen=1
 map <F2> :call g:ClangUpdateQuickFix() <CR>
 au BufRead,BufNew /tmp/mutt* so ~/.mutt/mutt.vim
 au BufRead *.txt,*.mkd set tw=94
-"au BufWinLeave * silent! mkview
-"au BufWinEnter * silent! loadview
+au BufWinLeave * silent! mkview
+au BufWinEnter * silent! loadview
 "au! BufRead,BufNewFile *.py call Setpython()
 au BufNewFile *zshcle* set ft=zsh
 au Bufread,BufNewfile /tmp/zsh* set ft=zsh
