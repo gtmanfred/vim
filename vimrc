@@ -8,6 +8,7 @@ filetype indent plugin on
 set runtimepath+=~/.config/vim/
 set viminfo+=n1~/.config/vim/viminfo
 
+
 runtime bundle/vim-pathogen/autoload/pathogen.vim 
 call pathogen#incubate()
 call pathogen#helptags()
@@ -75,6 +76,7 @@ au BufRead *.txt,*.mkd set tw=94
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 "au! BufRead,BufNewFile *.py call Setpython()
+au BufNewFile,BufRead *.yml,*.rb,*.erb set ts=2 sw=2 et
 au BufNewFile *zshcle* set ft=zsh
 au Bufread,BufNewfile /tmp/zsh* set ft=zsh
 au BufWinEnter,BufRead,BufNewFile *.java set filetype=java makeprg=javamake ts=4 sw=4 noet
