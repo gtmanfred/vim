@@ -2,12 +2,18 @@
 " 
 " See: http://vimdoc.sourceforge.net/htmldoc/options.html for details
 
-
-filetype indent plugin on
-
 set runtimepath+=~/.config/vim/
 set viminfo+=n1~/.config/vim/viminfo
 
+set nocompatible
+filetype off
+
+set rtp+=~/.config/vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+call vundle#end()
+
+filetype indent plugin on
 
 set nobackup
 set smartindent
