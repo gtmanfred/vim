@@ -9,10 +9,6 @@ set runtimepath+=~/.config/vim/
 set viminfo+=n1~/.config/vim/viminfo
 
 
-runtime bundle/vim-pathogen/autoload/pathogen.vim 
-call pathogen#incubate()
-call pathogen#helptags()
-
 set nobackup
 set smartindent
 set tabstop=4
