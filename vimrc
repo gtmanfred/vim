@@ -2,16 +2,39 @@
 " 
 " See: http://vimdoc.sourceforge.net/htmldoc/options.html for details
 
+let $PATH="/Users/dani6186/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin:/opt/local/sbin:/Users/dani6186/go/bin"
 set runtimepath+=~/.config/vim/
 set viminfo+=n1~/.config/vim/viminfo
 
 set nocompatible
 filetype off
 
+" setup powerline
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
 set rtp+=~/.config/vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 call vundle#end()
+set conceallevel=2
+set concealcursor=vin
+
+let g:clang_snippets=1
+let g:clang_conceal_snippets=1
+let g:clang_snippets_engine='clang_complete'
+
+" Complete options (disable preview scratch window, longest removed to aways show menu)
+set completeopt=menu,menuone
+
+" Limit popup menu height
+set pumheight=20
+
+" SuperTab completion fall-back 
+let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
 
 filetype indent plugin on
 
@@ -21,6 +44,8 @@ set tabstop=4
 set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
 set expandtab
 set showcmd         " Show (partial) command in status line.
+set laststatus=2
+
 set softtabstop=4
 set number          " Show line numbers.
 set showmatch       " When a bracket is inserted, briefly jump to the matching
@@ -46,11 +71,6 @@ set tabpagemax=15
 set mouse=a         " Enable the use of the mouse.
 set scrolloff=3
 
-
-let g:ycm_global_ycm_extra_conf = '~/.config/vim/bundle/youcompleteme/cpp/ycm/.ycm_extra_conf.py'
-
-
-"call pathogen#runtime_append_all_bundles()
 
 let g:netrw_http_cmd='curl -sL'
 let g:netrw_http_xcmd='-o'
@@ -103,92 +123,3 @@ let gitconfig=system("git config --get vim.settings")
 if strlen(gitconfig)
     execute "set" gitconfig
 endif
-
-au BufReadPost *.docx silent %!/usr/bin/docx2txt.pl % -
-au BufReadCmd *.xlsx,*.pptx call zip#Browse(expand("<amatch>"))
-au BufReadCmd *.odt,*.ott,*.ods,*.ots,*.odp,*.otp,*.odg,*.otg call zip#Browse(expand("<amatch>"))
-
-
-function! DoPrettyXML()
-  " save the filetype so we can restore it later
-  let l:origft = &ft
-  set ft=
-  " delete the xml header if it exists. This will
-  " permit us to surround the document with fake tags
-  " without creating invalid xml.
-  1s/<?xml .*?>//e
-  " insert fake tags around the entire document.
-  " This will permit us to pretty-format excerpts of
-  " XML that may contain multiple top-level elements.
-  0put ='<PrettyXML>'
-  $put ='</PrettyXML>'
-  silent %!xmllint --format -
-  " xmllint will insert an <?xml?> header. it's easy enough to delete
-  " if you don't want it.
-  " delete the fake tags
-  2d
-  $d
-  " restore the 'normal' indentation, which is one extra level
-  " too deep due to the extra tags we wrapped around the document.
-  silent %<
-  " back to home
-  1
-  " restore the filetype
-  exe "set ft=" . l:origft
-endfunction
-command! PrettyXML call DoPrettyXML()
-
-" XML formatter
-function! DoFormatXML() range
-	" Save the file type
-	let l:origft = &ft
-
-	" Clean the file type
-	set ft=
-
-	" Add fake initial tag (so we can process multiple top-level elements)
-	exe ":let l:beforeFirstLine=" . a:firstline . "-1"
-	if l:beforeFirstLine < 0
-		let l:beforeFirstLine=0
-	endif
-	exe a:lastline . "put ='</PrettyXML>'"
-	exe l:beforeFirstLine . "put ='<PrettyXML>'"
-	exe ":let l:newLastLine=" . a:lastline . "+2"
-	if l:newLastLine > line('$')
-		let l:newLastLine=line('$')
-	endif
-
-	" Remove XML header
-	exe ":" . a:firstline . "," . a:lastline . "s/<\?xml\\_.*\?>\\_s*//e"
-
-	" Recalculate last line of the edited code
-	let l:newLastLine=search('</PrettyXML>')
-
-	" Execute external formatter
-	exe ":silent " . a:firstline . "," . l:newLastLine . "!xmllint --noblanks --format --recover -"
-
-	" Recalculate first and last lines of the edited code
-	let l:newFirstLine=search('<PrettyXML>')
-	let l:newLastLine=search('</PrettyXML>')
-	
-	" Get inner range
-	let l:innerFirstLine=l:newFirstLine+1
-	let l:innerLastLine=l:newLastLine-1
-
-	" Remove extra unnecessary indentation
-	exe ":silent " . l:innerFirstLine . "," . l:innerLastLine "s/^  //e"
-
-	" Remove fake tag
-	exe l:newLastLine . "d"
-	exe l:newFirstLine . "d"
-
-	" Put the cursor at the first line of the edited code
-	exe ":" . l:newFirstLine
-
-	" Restore the file type
-	exe "set ft=" . l:origft
-endfunction
-command! -range=% FormatXML <line1>,<line2>call DoFormatXML()
-
-nmap <silent> <leader>x :%FormatXML<CR>
-vmap <silent> <leader>x :FormatXML<CR>
